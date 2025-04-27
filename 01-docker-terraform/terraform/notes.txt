@@ -1,0 +1,18 @@
+# Create service account in GCP dashboard
+Set up instructions https://github.com/timothy-nguyen/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/2_gcp_overview.md#setup-for-access
+
+# Export credentials for service account
+export GOOGLE_APPLICATION_CREDENTIALS='/home/git/data-engineering-zoomcamp/01-docker-terraform/terraform/keys/my-creds.json'
+echo $GOOGLE_APPLICATION_CREDENTIALS
+
+# Initialize state file (.tfstate)
+terraform init
+
+# Check changes to new infra plan
+terraform plan -var="project=<your-gcp-project-id>"
+
+# Create new infra
+terraform apply -var="project=<your-gcp-project-id>"
+
+# Delete infra after your work, to avoid costs on any running services
+terraform destroy
