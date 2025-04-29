@@ -10,13 +10,12 @@ terraform {
 provider "google" {
   credentials = "./keys/my-creds.json"
   project     = "dtc-de-course-457906"
-  region      = "us-central1"
-  zone        = "us-central1-c"
 }
 
 resource "google_storage_bucket" "demo-bucket" {
-  name     = "dtc-de-course-457906-demo-bucket"
-  location = "US"
+  name          = "dtc-de-course-457906-demo-bucket"
+  location      = "AUSTRALIA-SOUTHEAST1"
+  force_destroy = true
 
   # Optional, but recommended settings:
   storage_class               = "STANDARD"
@@ -28,12 +27,15 @@ resource "google_storage_bucket" "demo-bucket" {
 
   lifecycle_rule {
     action {
-      type = "Delete"
+      type = "AbortIncompleteMultipartUpload"
     }
     condition {
-      age = 30 // days
+      age = 1 // days
     }
   }
+}
 
-  force_destroy = true
+resource "google_bigquery_dataset" "demo_dataset" {
+  dataset_id = "demo_dataset"
+  location   = "australia-southeast1"
 }
