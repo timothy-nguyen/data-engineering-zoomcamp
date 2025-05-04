@@ -1,0 +1,28 @@
+Q1. 
+
+docker container run -it python:3.12.8 bash
+pip --version # pip 24.3.1 from /usr/local/lib/python3.12/site-packages/pip (python 3.12)
+
+Q2. Connection details to database in pgadmin: hostname is "db" (i.e. first indent on second line).
+
+"5433:5432" is referring to host port : container port. 
+HOST_PORT: The port number on your host machine where you want to receive traffic
+CONTAINER_PORT: The port number within the container that's listening for connections
+
+e.g. traffic sent to 5433 will be forwarded to port 5432 in the container.
+
+Connect to postgres DB: db:5433
+
+Q3. 
+
+docker compose up
+docker run -it \
+  --network=pg-network \
+  ingest_data:v01 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --database=ny_taxi \
+    --table_name=yellow_taxi_trips \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
