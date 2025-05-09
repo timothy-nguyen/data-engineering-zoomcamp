@@ -8,24 +8,24 @@ terraform {
 }
 
 provider "google" {
-# Credentials only needs to be set if you do not have the GOOGLE_APPLICATION_CREDENTIALS set
-#  credentials = 
-  project = "<Your Project ID>"
-  region  = "us-central1"
+  # Credentials only needs to be set if you do not have the GOOGLE_APPLICATION_CREDENTIALS set
+  #  credentials = 
+  project = "dtc-de-course-457906"
+  region  = "australia-southeast1-a"
 }
 
 
 
 resource "google_storage_bucket" "data-lake-bucket" {
-  name          = "<Your Unique Bucket Name>"
-  location      = "US"
+  name     = "data-lake-bucket-dtc-de-course-457906"
+  location = "AUSTRALIA-SOUTHEAST1"
 
   # Optional, but recommended settings:
-  storage_class = "STANDARD"
+  storage_class               = "STANDARD"
   uniform_bucket_level_access = true
 
   versioning {
-    enabled     = true
+    enabled = true
   }
 
   lifecycle_rule {
@@ -33,7 +33,7 @@ resource "google_storage_bucket" "data-lake-bucket" {
       type = "Delete"
     }
     condition {
-      age = 30  // days
+      age = 30 // days
     }
   }
 
@@ -42,7 +42,7 @@ resource "google_storage_bucket" "data-lake-bucket" {
 
 
 resource "google_bigquery_dataset" "dataset" {
-  dataset_id = "<The Dataset Name You Want to Use>"
-  project    = "<Your Project ID>"
-  location   = "US"
+  dataset_id = "homework1_dataset"
+  project    = "dtc-de-course-457906"
+  location   = "australia-southeast1"
 }

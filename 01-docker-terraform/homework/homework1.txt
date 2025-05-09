@@ -26,3 +26,22 @@ docker run -it \
     --database=ny_taxi \
     --table_name=yellow_taxi_trips \
     --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
+
+
+***
+During the period of October 1st 2019 (inclusive) and November 1st 2019 (exclusive), how many trips, respectively, happened:
+Up to 1 mile
+In between 1 (exclusive) and 3 miles (inclusive),
+In between 3 (exclusive) and 7 miles (inclusive),
+In between 7 (exclusive) and 10 miles (inclusive),
+Over 10 miles
+***
+SELECT *
+FROM public.yellow_taxi_trips
+LIMIT 100;
+
+SELECT COUNT(*) AS N_TRIPS
+FROM public.yellow_taxi_trips
+WHERE lpep_pickup_datetime::date >= CAST('2019-10-01' AS DATE)
+AND lpep_pickup_datetime::date < CAST('2019-11-01' AS DATE)
+AND trip_distance <= 1;
